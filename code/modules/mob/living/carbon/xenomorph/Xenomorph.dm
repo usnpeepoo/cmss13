@@ -275,6 +275,7 @@
 	/// for check on lurker invisibility
 	var/stealth = FALSE
 	var/burrow = FALSE
+	var/flight = FALSE
 	var/fortify = FALSE
 	var/crest_defense = FALSE
 	/// 0/FALSE - upright, 1/TRUE - all fours
@@ -344,6 +345,10 @@
 	// Burrowers
 	var/used_burrow = 0
 	var/used_tunnel = 0
+
+	// Hawk
+	var/flight_timer_id = TIMER_ID_NULL
+	var/speed_buff = 0.20
 
 	//Carrier vars
 	var/threw_a_hugger = 0

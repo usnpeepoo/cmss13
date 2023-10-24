@@ -247,6 +247,8 @@ There are several things that need to be remembered:
 	remove_overlay(TARGETED_LAYER)
 
 	var/image/holo_card_image
+	var/image/I
+
 
 	if(holo_card_color)
 		holo_card_image = image("icon" = 'icons/effects/Targeted.dmi', "icon_state" = "holo_card_[holo_card_color]")
@@ -254,8 +256,15 @@ There are several things that need to be remembered:
 	if(!holo_card_image)
 		return
 
+	if(targeted_by && target_locked)
+		I = image("icon" = target_locked)
+	else if(!targeted_by && target_locked)
+		QDEL_NULL(target_locked)
+
 	holo_card_image.layer = -TARGETED_LAYER
+	I.layer = -TARGETED_LAYER
 	overlays_standing[TARGETED_LAYER] = holo_card_image
+	overlays_standing[TARGETED_LAYER] = I
 	apply_overlay(TARGETED_LAYER)
 
 //Call when someone is gauzed or splinted, or when one of those items are removed

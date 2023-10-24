@@ -93,6 +93,10 @@
 		to_chat(src, SPAN_WARNING("You cannot rest while burrowed!"))
 		return
 
+	if(flight)
+		to_chat(src, SPAN_WARNING("You cannot rest while in flight!"))
+		return
+
 	if(crest_defense)
 		to_chat(src, SPAN_WARNING("You cannot rest while your crest is down!"))
 		return

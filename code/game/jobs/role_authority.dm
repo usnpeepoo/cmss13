@@ -807,6 +807,8 @@ I hope it's easier to tell what the heck this proc is even doing, unlike previou
 			M = /mob/living/carbon/xenomorph/boiler
 		if(XENO_CASTE_PREDALIEN)
 			M = /mob/living/carbon/xenomorph/predalien
+		if(XENO_CASTE_HAWK)
+			M = /mob/living/carbon/xenomorph/hawk
 		if(XENO_CASTE_HELLHOUND)
 			M = /mob/living/carbon/xenomorph/hellhound
 	return M

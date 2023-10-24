@@ -204,6 +204,8 @@
 #define TRAIT_ABILITY_OVIPOSITOR "t_ability_ovipositor"
 /// Used for burrowed mobs, prevent's SG/sentrys/claymores from autofiring
 #define TRAIT_ABILITY_BURROWED "t_ability_burrowed"
+/// Used for in flight mobs, prevent's claymores from autofiring
+#define TRAIT_ABILITY_FLIGHT "t_ability_flight"
 
 //-- item traits --
 // TOOL TRAITS
@@ -269,6 +271,7 @@ GLOBAL_LIST_INIT(mob_traits, list(
 	TRAIT_DEXTROUS,
 	TRAIT_REAGENT_SCANNER,
 	TRAIT_ABILITY_BURROWED,
+	TRAIT_ABILITY_FLIGHT,
 	TRAIT_VULTURE_USER,
 ))
 

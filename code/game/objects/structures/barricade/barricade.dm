@@ -48,6 +48,7 @@
 	..()
 	if (pass_flags)
 		pass_flags.flags_can_pass_all = NONE
+		pass_flags.flags_can_pass_all = PASS_FLIGHT
 		pass_flags.flags_can_pass_front = NONE
 		pass_flags.flags_can_pass_behind = PASS_OVER^(PASS_OVER_ACID_SPRAY|PASS_OVER_THROW_MOB)
 	flags_can_pass_front_temp = PASS_OVER_THROW_MOB

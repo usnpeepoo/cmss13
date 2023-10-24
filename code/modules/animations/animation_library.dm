@@ -178,6 +178,8 @@ Can look good elsewhere as well.*/
 		if(src.Adjacent(A.clone))
 			A = A.clone
 	if(buckled || anchored) return //it would look silly.
+	if(HAS_TRAIT(src, TRAIT_ABILITY_FLIGHT)) // while in flight you don't get attack offsets
+		return
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
 	var/direction = get_dir(src, A)
