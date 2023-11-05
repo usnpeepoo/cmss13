@@ -5,9 +5,9 @@
 	var/action_name = "Take Flight"
 	handle_xeno_macro(src, action_name)
 
-/datum/action/xeno_action/verb/verb_beak_strike()
+/datum/action/xeno_action/verb/verb_strike()
 	set category = "Alien"
-	set name = "Beak Strike"
+	set name = "Strike"
 	set hidden = TRUE
-	var/action_name = "Beak Strike"
+	var/action_name = "Strike"
 	handle_xeno_macro(src, action_name)

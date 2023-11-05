@@ -11,7 +11,8 @@
 
 	xeno.balloon_alert_to_viewers("begins to take flight!")
 
-	animate(xeno, pixel_y = 20, alpha = alpha_amount, time = 1 SECONDS, easing = LINEAR_EASING)
+	xeno.update_icons()
+	animate(xeno, pixel_y = 16, alpha = alpha_amount, time = 0.50 SECONDS, easing = LINEAR_EASING, flags = ANIMATION_PARALLEL)
 	playsound(xeno,'sound/weapons/alien_flight.ogg', 55)
 	xeno.speed_modifier -= speed_buff
 	xeno.evasion_modifier += evasion_buff
@@ -33,7 +34,7 @@
 
 	var/flight_timer_id = 25 SECONDS
 	var/speed_buff = 0.4
-	var/evasion_buff = 50
+	var/evasion_buff = 40
 
 	if(!owner || owner.alpha == initial(owner.alpha))
 		return
@@ -49,11 +50,11 @@
 	xeno.recalculate_speed()
 	xeno.recalculate_evasion()
 
+	xeno.update_icons()
 	animate(xeno, alpha = initial(xeno.alpha), pixel_y = initial(xeno.pixel_y),time = 0.5 SECONDS, easing = LINEAR_EASING)
 	playsound(xeno,'sound/weapons/alien_landing.ogg', 70)
 	to_chat(xeno, SPAN_XENOHIGHDANGER("You feel your wing strength waver!"))
 	xeno.balloon_alert_to_viewers("begins to land!")
-	xeno.update_icons()
 	xeno.remove_temp_pass_flags(PASS_MOB_THRU|PASS_BUILDING|PASS_UNDER)
 
 	if (xeno.mutation_type == HAWK_NORMAL)
@@ -65,7 +66,7 @@
 	to_chat(owner, SPAN_XENOHIGHDANGER("You are ready to take flight again!"))
 	..()
 
-/datum/action/xeno_action/activable/beak_strike/use_ability(atom/targeted_atom)
+/datum/action/xeno_action/activable/strike/use_ability(atom/targeted_atom)
 	var/mob/living/carbon/xenomorph/xeno = owner
 
 	if(!action_cooldown_check())
@@ -86,7 +87,7 @@
 		return
 
 	if(hit_target.stat == DEAD)
-		to_chat(xeno, SPAN_XENODANGER("You can't beak strike a dead target!"))
+		to_chat(xeno, SPAN_XENODANGER("You can't strike a dead target!"))
 		return
 
 	if(xeno.stat == UNCONSCIOUS)
@@ -130,14 +131,22 @@
 		apply_cooldown()
 	else
 		if(!xeno.Adjacent(hit_target))
-			to_chat(xeno, SPAN_XENOHIGHDANGER("You can only beak strike an adjacent target!"))
+			to_chat(xeno, SPAN_XENOHIGHDANGER("You can only strike an adjacent target!"))
 			return
-		to_chat(xeno, SPAN_XENOHIGHDANGER("You pierce [hit_target]’s chest with your beak!"))
+		to_chat(xeno, SPAN_XENOHIGHDANGER("You bite [hit_target]’s chest!"))
 		playsound(hit_target,'sound/weapons/alien_bite2.ogg', 50, TRUE)
-		xeno.visible_message(SPAN_DANGER("[xeno] pierces [hit_target]’s chest with their beak!."))
+		xeno.visible_message(SPAN_DANGER("[xeno] bites [hit_target]’s chest!."))
 		xeno.flick_attack_overlay(hit_target, "headbite")
 		xeno.animation_attack_on(hit_target, pixel_offset = 16)
 		hit_target.apply_armoured_damage(30, ARMOR_MELEE, BRUTE, "chest", 5)
 		hit_target.apply_effect(2, DAZE)
 	apply_cooldown()
 	return ..()
+
+/datum/action/xeno_action/activable/tail_stab/hawk/use_ability(atom/A)
+	var/target = ..()
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.apply_effect(2, SLOW)
+		carbon_target.reagents.add_reagent("molecularacid", 0.75)
+		carbon_target.reagents.set_source_mob(owner, /datum/reagent/toxin/molecular_acid)

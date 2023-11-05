@@ -10,9 +10,9 @@
 
 	var/duration = 25 SECONDS // 30 seconds base
 	var/flight_timer_id = TIMER_ID_NULL
-	var/alpha_amount = 125
+	var/alpha_amount = 175
 	var/speed_buff = 0.4
-	var/evasion_buff = 50
+	var/evasion_buff = 40
 
 /datum/action/xeno_action/activable/xeno_spit/hawk
 	name = "Spit Acid"
@@ -23,11 +23,11 @@
 	ability_primacy = XENO_PRIMARY_ACTION_2
 	cooldown_message = "You feel your corrosive glands swell with acid. You can spit again."
 
-/datum/action/xeno_action/activable/beak_strike
-	name = "Beak Strike"
+/datum/action/xeno_action/activable/strike
+	name = "Strike"
 	action_icon_state = "xeno_spit"
-	ability_name = "beak strike"
-	macro_path = /datum/action/xeno_action/verb/verb_beak_strike
+	ability_name = "strike"
+	macro_path = /datum/action/xeno_action/verb/verb_strike
 	action_type = XENO_ACTION_CLICK
 	ability_primacy = XENO_PRIMARY_ACTION_3
 	xeno_cooldown = 2 SECONDS
@@ -37,3 +37,5 @@
 	var/max_distance = 5 // 6 tiles between
 	var/windup_duration = 10
 
+/datum/action/xeno_action/activable/tail_stab/hawk
+	name = "Venomous Tail Stab"

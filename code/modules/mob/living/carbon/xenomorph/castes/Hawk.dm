@@ -41,7 +41,7 @@
 	desc = "A small but winged monstrosity, it has a visible green sac and a long tail."
 	icon = 'icons/mob/xenos/hawk.dmi'
 	icon_size = 64
-	icon_state = "Boiler Walking"
+	icon_state = "Hawk Walking"
 	plasma_types = list(PLASMA_NEUROTOXIN)
 	pixel_x = -16
 	old_x = -16
@@ -62,12 +62,14 @@
 		/datum/action/xeno_action/onclick/xeno_resting,
 		/datum/action/xeno_action/onclick/regurgitate,
 		/datum/action/xeno_action/watch_xeno,
-		/datum/action/xeno_action/activable/tail_stab,
+		/datum/action/xeno_action/activable/tail_stab/hawk,
 		/datum/action/xeno_action/onclick/flight,
 		/datum/action/xeno_action/activable/xeno_spit/hawk,
-		/datum/action/xeno_action/activable/beak_strike,
+		/datum/action/xeno_action/activable/strike,
 		/datum/action/xeno_action/onclick/tacmap,
 	)
+	mutation_icon_state = HAWK_NORMAL
+	mutation_type = HAWK_NORMAL
 
 /mob/living/carbon/xenomorph/hawk/Initialize(mapload, mob/living/carbon/xenomorph/oldxeno, h_number)
 	. = ..()
@@ -126,3 +128,10 @@
 	var/flight_message = (flight_start_time == -1) ? "N/A" : "[(flight_duration-(world.time - flight_start_time))/10] seconds."
 	. += "Flight Time Left: [flight_message]"
 
+/datum/behavior_delegate/hawk_base/on_update_icons()
+	if(bound_xeno.stat == DEAD)
+		return
+
+	if(bound_xeno.flight && bound_xeno.health > 0)
+		bound_xeno.icon_state = "[bound_xeno.mutation_icon_state || bound_xeno.mutation_type] Hawk Flying"
+		return TRUE

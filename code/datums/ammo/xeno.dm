@@ -184,9 +184,12 @@
 	accuracy = HIT_ACCURACY_TIER_10 + HIT_ACCURACY_TIER_5
 	max_range = 5
 	spit_cost = 10
-	damage = 10
+	damage = 7
 	shell_speed = AMMO_SPEED_TIER_2
 	added_spit_delay = 0
+
+/datum/ammo/xeno/acid/hawk/on_hit_mob(mob/M, obj/projectile/P)
+	M.apply_effect (3, DAZE)
 /datum/ammo/xeno/acid/dot
 	name = "acid spit"
 
